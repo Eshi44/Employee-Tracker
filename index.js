@@ -133,6 +133,11 @@ function viewRoles() {
 }
 
 function viewEmployees() {
+    connection.query("SELECT employee.role_id, employee.first_name, employee.last_name FROM employee", function(error, response){
+        if (error) throw error;
+        console.table(response);
+        start();
+  });
 
 }
 
