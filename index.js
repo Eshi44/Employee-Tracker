@@ -52,24 +52,31 @@ const connection = mysql.createConnection({
         //switch/break cases
         //Add departments
         case "Add departments":
+            addDepartments();
         break;
         //Add roles
         case "Add roles":
+            addRoles();
         break;
         //Add employees
         case "Add employees":
+            addEmployees();
         break;
         //View departments
         case "View departments":
+            viewDepartments();
         break;
         //View roles
         case "View roles":
+            viewRoles();
         break;
         //View employees
         case "View employees":
+            viewEmployees();
         break;
         //Update employee roles
         case "Update employee roles":
+            updateEmployeeRoles();
         break;
         //Exit Application
         case "Exit Application":
@@ -79,4 +86,31 @@ const connection = mysql.createConnection({
       })
   }
 
+function addDepartments() {
+
+  }
+
+function addRoles() {
+
+}
+
+function addEmployees() {
+
+}
+
+function viewDepartments() {
+
+}
+
+function viewRoles() {
+
+}
+
+function viewEmployees() {
+
+}
+
+function updateEmployeeRoles() {
+
+}
 
