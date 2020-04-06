@@ -8,9 +8,9 @@ CREATE TABLE department (
     --   * **id** - INT PRIMARY KEY
     id INT NOT NULL AUTO_INCREMENT,
     --   * **name** - VARCHAR(30) to hold department name
-    department_name VARCHAR(30) NOT NULL
-   
-    PRIMARY KEY (id)
+    department_name VARCHAR(30) NOT NULL,
+
+    PRIMARY KEY(id)
 );
 
 -- * **role**:
@@ -22,10 +22,10 @@ role_title VARCHAR(30),
 --   * **salary** -  DECIMAL to hold role salary
 salary DECIMAL(10,4) NOT NULL,
 --   * **department_id** -  INT to hold reference to department role belongs to
-department_id INT NOT NULL
+department_id INT NOT NULL,
 FOREIGN KEY (department_id ) REFERENCES department(id),
 
-PRIMARY KEY (id)
+PRIMARY KEY(id)
 );
 -- CREATE TABLE Orders (
 --     OrderID int NOT NULL,
@@ -50,5 +50,8 @@ role_id INT NOT NULL,
 --   This field may be null if the employee has no manager
 manager_id INT NULL,
 
-PRIMARY KEY (id)
+PRIMARY KEY(id)
 );
+
+
+
