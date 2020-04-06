@@ -24,6 +24,13 @@ const connection = mysql.createConnection({
     start();
   });
 
+  // Build a command-line application that at a minimum allows the user to:
+
+//   * Add departments, roles, employees
+
+//   * View departments, roles, employees
+
+//   * Update employee roles
   function start() {
       inquirer.prompt ([
           {
@@ -41,15 +48,35 @@ const connection = mysql.createConnection({
                 ]
           }
       ]).then (function(response){
-          //switch/break cases
+          switch (response.start) {
+        //switch/break cases
+        //Add departments
+        case "Add departments":
+        break;
+        //Add roles
+        case "Add roles":
+        break;
+        //Add employees
+        case "Add employees":
+        break;
+        //View departments
+        case "View departments":
+        break;
+        //View roles
+        case "View roles":
+        break;
+        //View employees
+        case "View employees":
+        break;
+        //Update employee roles
+        case "Update employee roles":
+        break;
+        //Exit Application
+        case "Exit Application":
+            connection.end();
+        break;
+          }
       })
   }
 
 
-// Build a command-line application that at a minimum allows the user to:
-
-//   * Add departments, roles, employees
-
-//   * View departments, roles, employees
-
-//   * Update employee roles
