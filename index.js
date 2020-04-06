@@ -4,6 +4,24 @@ const mysql = require("mysql");
 const consoleTable = require('console.table');
 //require inquirer
 const inquirer = require ('inquirer'); 
+//require asciiart-logo
+const logo = require('asciiart-logo');
+
+console.log(
+    logo({
+        name: 'Employee'+
+        'Manager',
+        lineChars: 10,
+        padding: 2,
+        margin: 3,
+        borderColor: 'grey',
+        logoColor: 'bold-white',
+        textColor: 'white',
+    })
+    .emptyLine()
+    .emptyLine()
+    .render()
+);
 
 const connection = mysql.createConnection({
     //host
