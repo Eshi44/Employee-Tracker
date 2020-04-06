@@ -7,6 +7,8 @@ const inquirer = require ('inquirer');
 //require asciiart-logo
 const logo = require('asciiart-logo');
 
+
+//Employee manager logo display
 console.log(
     logo({
         name: 'Employee'+
@@ -54,6 +56,7 @@ const connection = mysql.createConnection({
           {
              type:"list",
              message: "What would you like to do?",
+             name: "initialPrompt",
              choices:  [
                  "Add departments",
                  "Add roles",
@@ -66,7 +69,7 @@ const connection = mysql.createConnection({
                 ]
           }
       ]).then (function(response){
-          switch (response.start) {
+          switch (response.initialPrompt) {
         //switch/break cases
         //Add departments
         case "Add departments":
@@ -117,7 +120,12 @@ function addEmployees() {
 }
 
 function viewDepartments() {
-
+    connection.query("SELECT * FROM department", function(error, response){
+        if (error) throw error;
+        console.table(response);
+        start();
+        
+    })
 }
 
 function viewRoles() {
