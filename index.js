@@ -1,3 +1,4 @@
+//ADD YOUR PASSWORD - LINE 36
 // require mysql
 const mysql = require("mysql");
 //require console table
@@ -8,7 +9,7 @@ const inquirer = require ('inquirer');
 const logo = require('asciiart-logo');
 
 
-//Employee manager logo display
+////////////////////////////// LOGO DISPLAY //////////////////////////////////////////////////
 console.log(
     logo({
         name: 'Employee Manager',
@@ -23,7 +24,7 @@ console.log(
     .emptyLine()
     .render()
 );
-
+////////////////////////////// CREATE CONNECTION //////////////////////////////////////////////////
 const connection = mysql.createConnection({
     //host
     host: "localhost",
@@ -32,10 +33,11 @@ const connection = mysql.createConnection({
     // Your username
     user: "root",
     // Your password
+    /////////////////////////////////// ADD YOUR PASSWORD /////////////////////////////////////////
     password: "Dlareme44",
     database: "company_employees_db"
   });
-  
+  ////////////////////////////// CONNECT //////////////////////////////////////////////////
   connection.connect(function(error) {
     if (error) throw error;
     console.log("connected as id " + connection.threadId);
@@ -50,6 +52,7 @@ const connection = mysql.createConnection({
 //   * View departments, roles, employees
 
 //   * Update employee roles
+////////////////////////////// INITIAL START FUNCTION //////////////////////////////////////////////////
   function start() {
       inquirer.prompt ([
           {
@@ -105,7 +108,7 @@ const connection = mysql.createConnection({
           }
       })
   }
-
+////////////////////////////// ADD DEPARTMENTS //////////////////////////////////////////////////
 function addDepartments() {
 inquirer.prompt([
     {
@@ -114,23 +117,78 @@ inquirer.prompt([
         name: "deptName",
     }
 ]).then(function(response){
-    console.log(response);
+    // console.log(response);
     connection.query("INSERT INTO department SET ?",
-    {department_name: response.deptName}, function(error, response){
+    {department_name: response.deptName}, function(error){
         if (error) throw error;
-        viewDepartments();
+       console.log("================================================");
+       console.log("You're new department has been added successfully!");
+       console.log("================================================");
+        start();
     })
 })
-  }
-
+}
+////////////////////////////// ADD ROLES //////////////////////////////////////////////////
 function addRoles() {
-
+inquirer.prompt ([
+    {
+    type: "input",
+    message: "What is their role title?",
+    name: "roleTitle",
+    },
+    {
+    type: "input",
+    message: "What is their salary?",
+    name: "salary",
+    },
+    {
+    type: "input",
+    message: "What is their department id number?",
+    name: "deptIdNum",
+    },    
+    ])
 }
-
+////////////////////////////// ADD EMPLOYEES //////////////////////////////////////////////////
 function addEmployees() {
+inquirer.prompt ([
+    {
+        type: "input",
+        message: "What is their first name?",
+        name: "firstName",
+    },
+    {
+        type: "input",
+        message: "What is their last name?",
+        name: "lastName",
+    },
+    {
+        type: "input",
+        message: "What is their role id number?",
+        name: "roleIdNum",
+    },
+    {
+        type: "input",
+        message: "If applicable, what is their manager's id number?",
+        name: "managerIdNum",
+        default: 0,
+    },
 
+]).then (function(response){
+    connection.query("INSERT INTO employee SET ?",
+    {first_name: response.firstName,
+    last_name: response.lastName,
+    role_id: response.roleIdNum,
+    manager_id: response.managerIdNum,
+    }, function(error){
+        if (error) throw error;
+        console.log("================================================");
+        console.log("You're new employee has been added successfully!");
+        console.log("================================================");
+        start();
+    })
+})
 }
-
+////////////////////////////// VIEW DEPARTMENTS //////////////////////////////////////////////////
 function viewDepartments() {
     connection.query("SELECT * FROM department", function(error, response){
         if (error) throw error;
@@ -139,7 +197,7 @@ function viewDepartments() {
         
     })
 }
-
+////////////////////////////// VIEW ROLES //////////////////////////////////////////////////
 function viewRoles() {
     connection.query("SELECT role.role_title, employee.first_name, employee.last_name FROM role, employee WHERE role.id= employee.id", function(error, response){
         if (error) throw error;
@@ -148,17 +206,41 @@ function viewRoles() {
   });
 
 }
-
+////////////////////////////// VIEW EMPLOYEES //////////////////////////////////////////////////
 function viewEmployees() {
-    connection.query("SELECT employee.role_id, employee.first_name, employee.last_name FROM employee", function(error, response){
+    connection.query("SELECT employee.role_id, employee.first_name, employee.last_name, manager_id FROM employee", function(error, response){
         if (error) throw error;
         console.table(response);
         start();
   });
 
 }
-
+////////////////////////////// UPDATE EMPLOYEES //////////////////////////////////////////////////
 function updateEmployeeRoles() {
-
+connection.query("SELECT first_name, last_name, id FROM employee",
+function(error,response){
+    if (error) throw error;
+    let employee = response.map(employee =>({
+        name: employee.first_name + " " + employee.last_name, id: employee.id}))
+    
+    inquirer.prompt ([
+        {
+        type: "list",
+        message: "Which employee's role would you like to update?",
+        name: "employeeUpdateName",
+        choices: employee,
+        },
+        {
+        type: "input",
+        message: "What is their new role?",
+        name: "newRole",
+        },
+        {
+            type: "input",
+            message: "What is their new salary?",
+            name: "newSalary",
+            },    
+        ])
+    
+})
 }
-
