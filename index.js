@@ -152,7 +152,18 @@ inquirer.prompt ([
         default: 0,
     },
 
-])
+]).then (function(response){
+    connection.query("INSERT INTO employee SET ?",
+    {first_name: response.firstName,
+    last_name: response.lastName,
+    role_id: response.roleIdNum,
+    manager_id: response.managerIdNum,
+    }, function(error){
+        if (error) throw error;
+        viewEmployees();
+        start();
+    })
+})
 }
 
 function viewDepartments() {
@@ -174,7 +185,7 @@ function viewRoles() {
 }
 
 function viewEmployees() {
-    connection.query("SELECT employee.role_id, employee.first_name, employee.last_name FROM employee", function(error, response){
+    connection.query("SELECT employee.role_id, employee.first_name, employee.last_name, manager_id FROM employee", function(error, response){
         if (error) throw error;
         console.table(response);
         start();
