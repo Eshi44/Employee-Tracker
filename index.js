@@ -1,4 +1,4 @@
-//ADD YOUR PASSWORD - LINE 36
+//ADD YOUR PASSWORD - LINE 37
 // require mysql
 const mysql = require("mysql");
 //require console table
@@ -34,7 +34,7 @@ const connection = mysql.createConnection({
     user: "root",
     // Your password
     /////////////////////////////////// ADD YOUR PASSWORD /////////////////////////////////////////
-    password: "Dlareme44",
+    password: "",
     database: "company_employees_db"
   });
   ////////////////////////////// CONNECT //////////////////////////////////////////////////
@@ -130,6 +130,13 @@ inquirer.prompt([
 }
 ////////////////////////////// ADD ROLES //////////////////////////////////////////////////
 function addRoles() {
+    let department= []; 
+    connection.query("SELECT * FROM department", function(error, response) {
+        if(error) throw error;
+        for (let i=0; i <response.length; i++) {
+            department.push({name: response[i].department_name, value: response[i].id});
+        }
+
 inquirer.prompt ([
     {
     type: "input",
@@ -142,11 +149,25 @@ inquirer.prompt ([
     name: "salary",
     },
     {
-    type: "input",
+    type: "list",
     message: "What is their department id number?",
-    name: "deptIdNum",
+    name: "dept",
+    choices: department,
     },    
-    ])
+    ]).then(function(response){
+         console.log(response);
+        connection.query("INSERT INTO role SET ?",
+        {
+            role_title: response.roleTitle,
+            salary: response.salary,
+            department_id: response.dept,
+        },
+        function(error){
+            if (error) throw error;
+            start();
+        })
+    })
+});
 }
 ////////////////////////////// ADD EMPLOYEES //////////////////////////////////////////////////
 function addEmployees() {
@@ -199,7 +220,7 @@ function viewDepartments() {
 }
 ////////////////////////////// VIEW ROLES //////////////////////////////////////////////////
 function viewRoles() {
-    connection.query("SELECT role.role_title, employee.first_name, employee.last_name FROM role, employee WHERE role.id= employee.id", function(error, response){
+    connection.query("SELECT role.*, department.department_name FROM role LEFT JOIN department ON department.id = role.department_id", function(error, response){
         if (error) throw error;
         console.table(response);
         start();
@@ -221,13 +242,13 @@ connection.query("SELECT first_name, last_name, id FROM employee",
 function(error,response){
     if (error) throw error;
     let employee = response.map(employee =>({
-        name: employee.first_name + " " + employee.last_name, id: employee.id}))
+        name: employee.first_name + " " + employee.last_name, value: employee.id}))
     
     inquirer.prompt ([
         {
         type: "list",
         message: "Which employee's role would you like to update?",
-        name: "employeeUpdateName",
+        name: "employeeName",
         choices: employee,
         },
         {
@@ -240,7 +261,24 @@ function(error,response){
             message: "What is their new salary?",
             name: "newSalary",
             },    
-        ])
+        ]).then (function(response){
+            connection.query("UPDATE role SET ? WHERE ?",
+            [{
+                role_title: response.newRole,
+                salary: response.newSalary
+            },
+            {
+                id: response.employeeName
+            },
+            ],
+            function(error){
+                if (error) throw error;
+                console.log("================================================");
+                console.log("You're employee has been updated successfully!");
+                console.log("================================================");
+                start();
+            })
+        })
     
 })
 }
