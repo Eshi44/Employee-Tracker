@@ -114,11 +114,13 @@ inquirer.prompt([
         name: "deptName",
     }
 ]).then(function(response){
-    console.log(response);
+    // console.log(response);
     connection.query("INSERT INTO department SET ?",
-    {department_name: response.deptName}, function(error, response){
+    {department_name: response.deptName}, function(error){
         if (error) throw error;
-        viewDepartments();
+       console.log("================================================");
+       console.log("You're new department has been added successfully!");
+       console.log("================================================");
         start();
     })
 })
@@ -160,7 +162,9 @@ inquirer.prompt ([
     manager_id: response.managerIdNum,
     }, function(error){
         if (error) throw error;
-        viewEmployees();
+        console.log("================================================");
+        console.log("You're new employee has been added successfully!");
+        console.log("================================================");
         start();
     })
 })
