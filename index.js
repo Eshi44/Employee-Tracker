@@ -256,15 +256,16 @@ function(error,response){
         message: "What is their new role?",
         name: "newRole",
         },
-        // {
-        //     type: "input",
-        //     message: "What is their new salary?",
-        //     name: "newSalary",
-        //     },    
+        {
+            type: "input",
+            message: "What is their new salary?",
+            name: "newSalary",
+            },    
         ]).then (function(response){
             connection.query("UPDATE role SET ? WHERE ?",
             [{
-                role_title: response.newRole
+                role_title: response.newRole,
+                salary: response.newSalary
             },
             {
                 id: response.employeeName
