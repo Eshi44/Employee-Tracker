@@ -2,19 +2,19 @@
 
 Developers are often tasked with creating interfaces that make it easy for non-developers to view and interact with information stored in databases. Often these interfaces are known as **C**ontent **M**anagement **S**ystems. In this homework assignment, your challenge is to architect and build a solution for managing a company's employees using node, inquirer, and MySQL.
 
-## To deploy and use application
+## To Deploy and Use Application
 * install npm packages express, mysql, inquirer,asciiart-logo, and console.table
-* 
+* add your mysql root password to the index.js file
 
 ## Database Schema
 
-![Database Schema](/assets/db-schema.PNG)
+![Database Schema](assets/db-schema.PNG)
 
 
 
 ## Employee Manager
 
-![gif](/assets/team.gif)
+![gif](assets/team.gif)
 
 
   
@@ -56,4 +56,3 @@ How do you deliver this? Here are some guidelines:
 
 * You will need to perform a variety of SQL JOINS to complete this assignment, and it's recommended you review the week's activities if you need a refresher on this.
 
-![Employee Tracker](Assets/employee-tracker.gif)
