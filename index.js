@@ -107,7 +107,20 @@ const connection = mysql.createConnection({
   }
 
 function addDepartments() {
-
+inquirer.prompt([
+    {
+        type:"input",
+        message: "What department would you like to add?",
+        name: "deptName",
+    }
+]).then(function(response){
+    console.log(response);
+    connection.query("INSERT INTO department SET ?",
+    {department_name: response.deptName}, function(error, response){
+        if (error) throw error;
+        viewDepartments();
+    })
+})
   }
 
 function addRoles() {
