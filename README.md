@@ -5,6 +5,7 @@ Developers are often tasked with creating interfaces that make it easy for non-d
 ## To Deploy and Use Application
 * install npm packages express, mysql, inquirer,asciiart-logo, and console.table
 * add your mysql root password to the index.js file
+* run node index.js to begin 
 
 ## Database Schema
 
