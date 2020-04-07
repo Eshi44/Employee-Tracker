@@ -8,7 +8,7 @@ const inquirer = require ('inquirer');
 const logo = require('asciiart-logo');
 
 
-//Employee manager logo display
+////////////////////////////// LOGO DISPLAY //////////////////////////////////////////////////
 console.log(
     logo({
         name: 'Employee Manager',
@@ -23,7 +23,7 @@ console.log(
     .emptyLine()
     .render()
 );
-
+////////////////////////////// CREATE CONNECTION //////////////////////////////////////////////////
 const connection = mysql.createConnection({
     //host
     host: "localhost",
@@ -35,7 +35,7 @@ const connection = mysql.createConnection({
     password: "Dlareme44",
     database: "company_employees_db"
   });
-  
+  ////////////////////////////// CONNECT //////////////////////////////////////////////////
   connection.connect(function(error) {
     if (error) throw error;
     console.log("connected as id " + connection.threadId);
@@ -50,6 +50,7 @@ const connection = mysql.createConnection({
 //   * View departments, roles, employees
 
 //   * Update employee roles
+////////////////////////////// INITIAL START FUNCTION //////////////////////////////////////////////////
   function start() {
       inquirer.prompt ([
           {
@@ -105,7 +106,7 @@ const connection = mysql.createConnection({
           }
       })
   }
-
+////////////////////////////// ADD DEPARTMENTS //////////////////////////////////////////////////
 function addDepartments() {
 inquirer.prompt([
     {
@@ -124,12 +125,12 @@ inquirer.prompt([
         start();
     })
 })
-  }
-
+}
+////////////////////////////// ADD ROLES //////////////////////////////////////////////////
 function addRoles() {
 
 }
-
+////////////////////////////// ADD EMPLOYEES //////////////////////////////////////////////////
 function addEmployees() {
 inquirer.prompt ([
     {
@@ -169,7 +170,7 @@ inquirer.prompt ([
     })
 })
 }
-
+////////////////////////////// VIEW DEPARTMENTS //////////////////////////////////////////////////
 function viewDepartments() {
     connection.query("SELECT * FROM department", function(error, response){
         if (error) throw error;
@@ -178,7 +179,7 @@ function viewDepartments() {
         
     })
 }
-
+////////////////////////////// VIEW ROLES //////////////////////////////////////////////////
 function viewRoles() {
     connection.query("SELECT role.role_title, employee.first_name, employee.last_name FROM role, employee WHERE role.id= employee.id", function(error, response){
         if (error) throw error;
@@ -187,7 +188,7 @@ function viewRoles() {
   });
 
 }
-
+////////////////////////////// VIEW EMPLOYEES //////////////////////////////////////////////////
 function viewEmployees() {
     connection.query("SELECT employee.role_id, employee.first_name, employee.last_name, manager_id FROM employee", function(error, response){
         if (error) throw error;
@@ -196,7 +197,7 @@ function viewEmployees() {
   });
 
 }
-
+////////////////////////////// UPDATE EMPLOYEES //////////////////////////////////////////////////
 function updateEmployeeRoles() {
 
 }
