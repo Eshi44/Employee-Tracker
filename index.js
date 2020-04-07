@@ -119,6 +119,7 @@ inquirer.prompt([
     {department_name: response.deptName}, function(error, response){
         if (error) throw error;
         viewDepartments();
+        start();
     })
 })
   }
@@ -128,7 +129,30 @@ function addRoles() {
 }
 
 function addEmployees() {
+inquirer.prompt ([
+    {
+        type: "input",
+        message: "What is their first name?",
+        name: "firstName",
+    },
+    {
+        type: "input",
+        message: "What is their last name?",
+        name: "lastName",
+    },
+    {
+        type: "input",
+        message: "What is their role id number?",
+        name: "roleIdNum",
+    },
+    {
+        type: "input",
+        message: "If applicable, what is their manager's id number?",
+        name: "managerIdNum",
+        default: 0,
+    },
 
+])
 }
 
 function viewDepartments() {
