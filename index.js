@@ -1,3 +1,4 @@
+//ADD YOUR PASSWORD - LINE 36
 // require mysql
 const mysql = require("mysql");
 //require console table
@@ -32,6 +33,7 @@ const connection = mysql.createConnection({
     // Your username
     user: "root",
     // Your password
+    /////////////////////////////////// ADD YOUR PASSWORD /////////////////////////////////////////
     password: "Dlareme44",
     database: "company_employees_db"
   });
