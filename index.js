@@ -242,7 +242,7 @@ connection.query("SELECT first_name, last_name, id FROM employee",
 function(error,response){
     if (error) throw error;
     let employee = response.map(employee =>({
-        name: employee.first_name + " " + employee.last_name, id: employee.id}))
+        name: employee.first_name + " " + employee.last_name, value: employee.id}))
     
     inquirer.prompt ([
         {
@@ -262,15 +262,21 @@ function(error,response){
         //     name: "newSalary",
         //     },    
         ]).then (function(response){
-        //     connection.query(`UPDATE role SET ${role_title = response.newRole} WHERE ${id = employee.id}`,
-            
-        //     function(error){
-        //         if (error) throw error;
-        //         console.log("================================================");
-        //         console.log("You're employee has been updated successfully!");
-        //         console.log("================================================");
-        //         start();
-        //     })
+            connection.query("UPDATE role SET ? WHERE ?",
+            [{
+                role_title: response.newRole
+            },
+            {
+                id: response.employeeName
+            },
+            ],
+            function(error){
+                if (error) throw error;
+                console.log("================================================");
+                console.log("You're employee has been updated successfully!");
+                console.log("================================================");
+                start();
+            })
         })
     
 })
