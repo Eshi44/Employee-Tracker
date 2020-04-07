@@ -11,8 +11,7 @@ const logo = require('asciiart-logo');
 //Employee manager logo display
 console.log(
     logo({
-        name: 'Employee'+
-        'Manager',
+        name: 'Employee Manager',
         lineChars: 10,
         padding: 2,
         margin: 3,
@@ -129,6 +128,11 @@ function viewDepartments() {
 }
 
 function viewRoles() {
+    connection.query("SELECT role.role_title, employee.first_name, employee.last_name FROM role, employee WHERE role.id= employee.id", function(error, response){
+        if (error) throw error;
+        console.table(response);
+        start();
+  });
 
 }
 
