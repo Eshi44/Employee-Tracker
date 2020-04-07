@@ -130,7 +130,23 @@ inquirer.prompt([
 }
 ////////////////////////////// ADD ROLES //////////////////////////////////////////////////
 function addRoles() {
-
+inquirer.prompt ([
+    {
+    type: "input",
+    message: "What is their role title?",
+    name: "roleTitle",
+    },
+    {
+    type: "input",
+    message: "What is their salary?",
+    name: "salary",
+    },
+    {
+    type: "input",
+    message: "What is their department id number?",
+    name: "deptIdNum",
+    },    
+    ])
 }
 ////////////////////////////// ADD EMPLOYEES //////////////////////////////////////////////////
 function addEmployees() {
@@ -201,6 +217,30 @@ function viewEmployees() {
 }
 ////////////////////////////// UPDATE EMPLOYEES //////////////////////////////////////////////////
 function updateEmployeeRoles() {
-
+connection.query("SELECT first_name, last_name, id FROM employee",
+function(error,response){
+    if (error) throw error;
+    let employee = response.map(employee =>({
+        name: employee.first_name + " " + employee.last_name, id: employee.id}))
+    
+    inquirer.prompt ([
+        {
+        type: "list",
+        message: "Which employee's role would you like to update?",
+        name: "employeeUpdateName",
+        choices: employee,
+        },
+        {
+        type: "input",
+        message: "What is their new role?",
+        name: "newRole",
+        },
+        {
+            type: "input",
+            message: "What is their new salary?",
+            name: "newSalary",
+            },    
+        ])
+    
+})
 }
-
