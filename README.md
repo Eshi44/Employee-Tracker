@@ -8,13 +8,13 @@ Developers are often tasked with creating interfaces that make it easy for non-d
 
 ## Database Schema
 
-![Database Schema](assets/db-schema.PNG)
+![Database Schema](db-schema.PNG)
 
 
 
 ## Employee Manager
 
-![gif](assets/team.gif)
+![gif](team.gif)
 
 
   
